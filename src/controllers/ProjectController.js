@@ -17,7 +17,12 @@ module.exports = {
     return res.json(projects);
   },
   async store(req, res) {
-    await Project.create(req.body);
+    const { filename: cover } = req.file;
+    const data = {
+      ...req.body,
+      cover,
+    };
+    await Project.create(data);
 
     return res.status(201).json();
   },

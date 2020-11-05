@@ -6,6 +6,10 @@ const SessionController = require("./controllers/SessionController");
 const SubscribeController = require("./controllers/SubscribeController");
 const UserController = require("./controllers/UserController");
 
+const multer = require("multer");
+const ProjectPhotosController = require("./controllers/ProjectPhotosController");
+const upload = multer(require("./config/multer"));
+
 const routes = Router();
 
 // USER AND SESSIONS
@@ -16,10 +20,21 @@ routes.put("/users/:id", UserController.update);
 routes.delete("/users/:id", UserController.delete);
 
 routes.get("/projects", ProjectController.index);
-routes.post("/projects", ProjectController.store);
+routes.post("/projects", upload.single("file"), ProjectController.store);
+routes.post(
+  "/projects/:id/photos",
+  upload.single("file"),
+  ProjectPhotosController.store
+);
 routes.get("/projects/:id", ProjectController.show);
 routes.put("/projects/:id", ProjectController.update);
 routes.delete("/projects/:id", ProjectController.delete);
+
+routes.get("/events", EventController.index);
+routes.post("/events", upload.single("file"), EventController.store);
+routes.get("/events/:id", EventController.show);
+// routes.put("/events/:id", EventController.update);
+// routes.delete("/events/:id", EventController.delete);
 
 // routes.get('/sessions', SessionController.get)
 // routes.post('/sessions', SessionController.store)

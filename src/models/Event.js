@@ -1,29 +1,27 @@
 const { Schema, model } = require("mongoose");
 
-const ProjectSchema = new Schema(
+const EventSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    bio: {
-      type: String,
-    },
     description: {
       type: String,
       required: true,
     },
+    date: {
+      type: String,
+    },
     provinceName: {
       type: String,
-      required: true,
     },
     cover: {
       type: String,
       required: true,
     },
-    photos: [],
   },
   { timestamps: true }
 );
 
-module.exports = Project = model("Project", ProjectSchema);
+module.exports = Event = model("Event", EventSchema);
